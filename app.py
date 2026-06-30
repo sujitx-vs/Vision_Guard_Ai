@@ -96,11 +96,35 @@ body, .gradio-container{font-family:'Archivo',ui-sans-serif,system-ui,sans-serif
   color:var(--vg-yellow-dim);margin:0 0 8px 0;
 }
 .hero h1{
-  margin:0 0 8px 0;font-size:38px;font-weight:800;letter-spacing:-0.01em;
+  margin:0 0 4px 0;font-size:38px;font-weight:800;letter-spacing:-0.01em;
   color:var(--vg-yellow);
   text-shadow:0 0 24px rgba(245,197,24,0.25);
+  line-height:1.1;
 }
-.hero p{margin:0;font-size:15px;color:var(--vg-ink-dim);max-width:640px;line-height:1.5}
+.hero p.vg-sub{margin:0;font-size:14px;color:var(--vg-ink-dim);max-width:640px;line-height:1.5}
+
+/* step pills, used instead of a plain run-on sentence so the steps read
+   as distinct, aligned items rather than wrapped text */
+.hero-steps{
+  position:relative;z-index:1;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  margin-top:16px;
+}
+.hero-steps .vg-step{
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;
+  background:#15140d;border:1px solid var(--vg-line);border-radius:2px;
+  padding:8px 14px 8px 8px;color:var(--vg-ink);
+  white-space:nowrap;
+}
+.hero-steps .vg-step b{
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:none;width:18px;height:18px;border-radius:50%;
+  background:var(--vg-yellow);color:#0a0a08;font-size:11px;font-weight:700;
+}
+.hero-steps .vg-arrow{
+  color:var(--vg-yellow-dim);font-family:'JetBrains Mono',monospace;font-size:13px;
+}
 
 /* ---------- layout ---------- */
 .app-shell{gap:18px}
@@ -124,9 +148,29 @@ body, .gradio-container{font-family:'Archivo',ui-sans-serif,system-ui,sans-serif
 
 .tight-md{margin-top:8px}
 .tight-md p{margin:0;color:var(--vg-ink-dim);font-family:'JetBrains Mono',monospace;font-size:13px}
-.result-stack{gap:14px}
+.result-stack{gap:16px}
 .export-files{gap:14px}
 .hidden-empty{min-height:0!important}
+
+/* sub-section headers inside a panel, used to visually separate
+   "upload" from "query" on the left, and "results" from "export" on the right */
+.vg-section{
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--vg-yellow);margin:4px 0 10px 0;
+}
+.vg-section .vg-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:2px;flex:none;
+  background:var(--vg-yellow);color:#0a0a08;font-size:11px;font-weight:700;
+}
+.vg-section::after{
+  content:"";flex:1;height:1px;background:var(--vg-line);
+}
+.vg-divider{
+  height:1px;background:var(--vg-line);margin:18px 0 14px 0;border:none;
+}
+.vg-block{margin-bottom:2px}
 
 /* ---------- viewfinder / reticle treatment on visual elements ---------- */
 .gradio-container .gr-video, .gradio-container video,
@@ -320,7 +364,14 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
 <div class="hero">
   <p class="vg-eyebrow">// surveillance video intelligence</p>
   <h1>VISION&nbsp;GUARD</h1>
-  <p>Step 1: scan the video. Step 2: write a query and find matches. Then review each match and export only what you want.</p>
+  <p class="vg-sub">Scan a video to index it, then search it in plain language and export only the clips you need.</p>
+  <div class="hero-steps">
+    <div class="vg-step"><b>1</b>scan the video</div>
+    <span class="vg-arrow">&rarr;</span>
+    <div class="vg-step"><b>2</b>write a query &amp; find matches</div>
+    <span class="vg-arrow">&rarr;</span>
+    <div class="vg-step"><b>3</b>review &amp; export selected clips</div>
+  </div>
 </div>
 """
     )
@@ -329,6 +380,7 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
 
     with gr.Row(elem_classes="app-shell"):
         with gr.Column(scale=1, elem_classes="panel"):
+            gr.HTML('<div class="vg-section"><span class="vg-badge">1</span>upload &amp; scan</div>')
             video = gr.Video(label="cctv video", elem_classes="hidden-empty")
             good = [x for x in _sample_videos() if os.path.exists(x)]
             if good:
@@ -337,21 +389,26 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
             status = gr.Markdown("ready", elem_id="vg-status-wrap")
             live = gr.Image(label="live indexing preview", interactive=False, elem_classes="hidden-empty")
             info = gr.Markdown(elem_classes="tight-md")
+
+            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">2</span>search</div>')
             query = gr.Textbox(label="query", placeholder="person near gate, white car entering, blue truck, umbrella, backpack", interactive=False)
-            searched = gr.Markdown(elem_classes="tight-md")
             find_btn = gr.Button("step 2: find matches", interactive=False)
+            searched = gr.Markdown(elem_classes="tight-md")
 
         with gr.Column(scale=2, elem_classes="panel result-stack"):
+            gr.HTML('<div class="vg-section"><span class="vg-badge">3</span>results</div>')
             answer = gr.Markdown(elem_classes="tight-md")
             table = gr.Dataframe(headers=["Best Frame At", "Clip Window", "Objects", "Summary"], interactive=False, wrap=True)
+            gallery = gr.Gallery(label="matched frames", columns=2, height="auto")
+            match_md = gr.Markdown(elem_classes="tight-md")
+
+            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">4</span>export</div>')
             pick = gr.CheckboxGroup(label="choose clips to export")
             export_btn = gr.Button("export selected")
             with gr.Row(elem_classes="export-files"):
                 zipf = gr.File(label="zip", visible=False)
                 html = gr.File(label="html report", visible=False)
                 csv = gr.File(label="csv report", visible=False)
-            gallery = gr.Gallery(label="matched frames", columns=2, height="auto")
-            match_md = gr.Markdown(elem_classes="tight-md")
 
     scan_btn.click(scan_only, [video], [status, live, info, query, q_state, hits_state])
     scan_btn.click(lambda: gr.update(interactive=True), None, find_btn)
