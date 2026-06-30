@@ -4,16 +4,6 @@ Vision Guard is a scan-first CCTV video search application with a Gradio UI. It 
 
 This repository is intentionally a single-process inference application. There is no training loop, database server, REST API, or external orchestration service in the tracked runtime code.
 
-## Pipeline Overview
-
-![Vision Guard AI: CCTV Search and Analysis Pipeline](CCTV_Search_and_Analysis_Pipeline.png)
-
-## Documentation
-
-- Full technical manual: [PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md)
-- Optional external context-compression notes: [optional_integrations/headroom/README.md](optional_integrations/headroom/README.md)
-- Colab launcher notebook: [VisionGuard_Colab.ipynb](VisionGuard_Colab.ipynb)
-
 ## Audit Status
 
 The repository was re-audited against the current codebase state.
@@ -187,6 +177,3 @@ The scan report metadata now includes:
 
 `object_counts` and `total_detections` are derived from per-frame object-label presence in indexed frames. In other words, they count how many indexed frames contained each label, not the total number of raw detector boxes across the whole video.
 
-## Read Next
-
-For the full architecture, file-by-file audit, data contracts, Mermaid diagrams, and operational caveats, continue to [PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md).
