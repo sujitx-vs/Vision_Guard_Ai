@@ -19,92 +19,107 @@ pipe = VisionGuardPipeline()
 threading.Thread(target=pipe.warmup_models, daemon=True).start()
 
 theme = gr.themes.Base(
-    primary_hue=gr.themes.colors.yellow,
-    secondary_hue=gr.themes.colors.yellow,
-    neutral_hue=gr.themes.colors.neutral,
+    primary_hue=gr.themes.colors.blue,
+    secondary_hue=gr.themes.colors.blue,
+    neutral_hue=gr.themes.colors.slate,
     font=(gr.themes.GoogleFont("Archivo"), "ui-sans-serif", "system-ui", "sans-serif"),
     font_mono=(gr.themes.GoogleFont("JetBrains Mono"), "ui-monospace", "Menlo", "monospace"),
 ).set(
-    body_background_fill="#0a0a08",
-    background_fill_primary="#121210",
-    background_fill_secondary="#0a0a08",
-    border_color_primary="#3a3420",
-    block_background_fill="#121210",
-    block_border_color="#3a3420",
-    block_label_text_color="#f5c518",
-    block_title_text_color="#f5c518",
-    body_text_color="#e9e6da",
-    body_text_color_subdued="#9b9474",
-    input_background_fill="#181814",
-    input_border_color="#3a3420",
-    button_primary_background_fill="#f5c518",
-    button_primary_background_fill_hover="#ffd83d",
-    button_primary_text_color="#0a0a08",
-    button_secondary_background_fill="#181814",
-    button_secondary_border_color="#5c5430",
-    button_secondary_text_color="#f5c518",
+    body_background_fill="#06080c",
+    background_fill_primary="#0d1117",
+    background_fill_secondary="#06080c",
+    border_color_primary="#1c2b3a",
+    block_background_fill="#0d1117",
+    block_border_color="#1c2b3a",
+    block_label_text_color="#7fd4ff",
+    block_title_text_color="#7fd4ff",
+    body_text_color="#e7eef5",
+    body_text_color_subdued="#8fa3b5",
+    input_background_fill="#10161f",
+    input_border_color="#1c2b3a",
+    button_primary_background_fill="#3fa9ff",
+    button_primary_background_fill_hover="#7fd4ff",
+    button_primary_text_color="#06080c",
+    button_secondary_background_fill="#10161f",
+    button_secondary_border_color="#2c5a82",
+    button_secondary_text_color="#7fd4ff",
 )
 
 css = """
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Archivo:wght@600;700;800&display=swap');
 
 :root{
-  --vg-bg:#0a0a08;
-  --vg-panel:#121210;
-  --vg-yellow:#f5c518;
-  --vg-yellow-bright:#ffd83d;
-  --vg-yellow-dim:#6b6024;
-  --vg-line:#3a3420;
-  --vg-ink:#e9e6da;
-  --vg-ink-dim:#9b9474;
-  --vg-hazard:repeating-linear-gradient(135deg,#f5c518 0 10px,#0a0a08 10px 20px);
+  --vg-bg:#06080c;
+  --vg-panel:#0d1117;
+  --vg-blue:#3fa9ff;
+  --vg-blue-bright:#7fd4ff;
+  --vg-blue-dim:#2c5a82;
+  --vg-line:#1c2b3a;
+  --vg-ink:#e7eef5;
+  --vg-ink-dim:#8fa3b5;
+  --vg-glow:0 0 18px rgba(63,169,255,0.35), 0 0 48px rgba(63,169,255,0.12);
 }
 
-.gradio-container{max-width:1240px!important;background:var(--vg-bg)!important}
+.gradio-container{max-width:880px!important;background:var(--vg-bg)!important}
 .gradio-container,.gradio-container *{box-sizing:border-box}
 body, .gradio-container{font-family:'Archivo',ui-sans-serif,system-ui,sans-serif}
+body{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(63,169,255,0.10), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(63,169,255,0.08), transparent 40%),
+    var(--vg-bg);
+}
 
 /* ---------- hero ---------- */
 .hero{
   position:relative;
-  padding:28px 28px 24px;
-  border-radius:4px;
-  background:#0d0d0a;
+  padding:30px 28px 26px;
+  border-radius:10px;
+  background:rgba(13,17,23,0.85);
   border:1px solid var(--vg-line);
-  border-left:4px solid var(--vg-yellow);
   margin-bottom:18px;
   overflow:hidden;
+  backdrop-filter:blur(14px);
+  box-shadow:var(--vg-glow);
 }
 .hero::before{
   content:"";
   position:absolute;inset:0;
-  background:repeating-linear-gradient(0deg, rgba(245,197,24,0.035) 0px, rgba(245,197,24,0.035) 1px, transparent 1px, transparent 3px);
+  background:repeating-linear-gradient(0deg, rgba(63,169,255,0.035) 0px, rgba(63,169,255,0.035) 1px, transparent 1px, transparent 3px);
   pointer-events:none;
 }
 .hero::after{
   content:"";
-  position:absolute; top:14px; right:18px;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--vg-yellow);
-  box-shadow:0 0 10px 2px rgba(245,197,24,0.8);
-  animation:vg-blink 1.6s steps(2,jump-none) infinite;
+  position:absolute;top:-60px;right:-60px;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle, rgba(63,169,255,0.35), transparent 70%);
+  filter:blur(30px);
+  pointer-events:none;
 }
-@keyframes vg-blink{50%{opacity:.15}}
 .hero .vg-eyebrow{
+  position:relative;z-index:1;
   font-family:'JetBrains Mono',monospace;
   font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--vg-yellow-dim);margin:0 0 8px 0;
+  color:var(--vg-blue-dim);margin:0 0 8px 0;
+  display:flex;align-items:center;gap:8px;
 }
+.hero .vg-eyebrow .vg-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--vg-blue-bright);
+  box-shadow:0 0 8px 2px rgba(127,212,255,0.9);
+  animation:vg-blink 1.6s steps(2,jump-none) infinite;
+}
+@keyframes vg-blink{50%{opacity:.2}}
 .hero h1{
-  margin:0 0 4px 0;font-size:38px;font-weight:800;letter-spacing:-0.01em;
-  color:var(--vg-yellow);
-  text-shadow:0 0 24px rgba(245,197,24,0.25);
+  position:relative;z-index:1;
+  margin:0 0 4px 0;font-size:36px;font-weight:800;letter-spacing:-0.01em;
+  color:var(--vg-blue-bright);
+  text-shadow:0 0 24px rgba(63,169,255,0.45), 0 0 60px rgba(63,169,255,0.2);
   line-height:1.1;
 }
-.hero p.vg-sub{margin:0;font-size:14px;color:var(--vg-ink-dim);max-width:640px;line-height:1.5}
+.hero p.vg-sub{position:relative;z-index:1;margin:0;font-size:14px;color:var(--vg-ink-dim);max-width:640px;line-height:1.5}
 
-/* step pills, used instead of a plain run-on sentence so the steps read
-   as distinct, aligned items rather than wrapped text */
+/* step pills */
 .hero-steps{
   position:relative;z-index:1;
   display:flex;flex-wrap:wrap;align-items:center;gap:10px;
@@ -113,38 +128,33 @@ body, .gradio-container{font-family:'Archivo',ui-sans-serif,system-ui,sans-serif
 .hero-steps .vg-step{
   display:flex;align-items:center;gap:8px;
   font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;
-  background:#15140d;border:1px solid var(--vg-line);border-radius:2px;
+  background:rgba(63,169,255,0.06);border:1px solid var(--vg-line);border-radius:6px;
   padding:8px 14px 8px 8px;color:var(--vg-ink);
   white-space:nowrap;
+  backdrop-filter:blur(6px);
 }
 .hero-steps .vg-step b{
   display:inline-flex;align-items:center;justify-content:center;
   flex:none;width:18px;height:18px;border-radius:50%;
-  background:var(--vg-yellow);color:#0a0a08;font-size:11px;font-weight:700;
+  background:var(--vg-blue-bright);color:#06080c;font-size:11px;font-weight:700;
+  box-shadow:0 0 10px 1px rgba(127,212,255,0.7);
 }
 .hero-steps .vg-arrow{
-  color:var(--vg-yellow-dim);font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--vg-blue-dim);font-family:'JetBrains Mono',monospace;font-size:13px;
 }
 
-/* ---------- layout ---------- */
-.app-shell{gap:18px}
+/* ---------- single-column layout ---------- */
+.app-shell{gap:18px;display:flex;flex-direction:column}
 .panel{
   border:1px solid var(--vg-line);
-  border-radius:4px;
-  background:var(--vg-panel);
-  padding:16px;
+  border-radius:10px;
+  background:rgba(13,17,23,0.78);
+  backdrop-filter:blur(14px);
+  padding:18px;
   position:relative;
+  box-shadow:0 0 0 1px rgba(63,169,255,0.04), 0 12px 40px rgba(0,0,0,0.35);
 }
-.panel::before, .panel::after{
-  content:"";position:absolute;width:14px;height:14px;
-  border-top:2px solid var(--vg-yellow-dim);border-left:2px solid var(--vg-yellow-dim);
-  top:-1px;left:-1px;pointer-events:none;
-}
-.panel::after{
-  border-top:none;border-left:none;
-  border-bottom:2px solid var(--vg-yellow-dim);border-right:2px solid var(--vg-yellow-dim);
-  top:auto;left:auto;bottom:-1px;right:-1px;
-}
+.panel.vg-glow-panel{box-shadow:var(--vg-glow), 0 12px 40px rgba(0,0,0,0.35);}
 
 .tight-md{margin-top:8px}
 .tight-md p{margin:0;color:var(--vg-ink-dim);font-family:'JetBrains Mono',monospace;font-size:13px}
@@ -152,71 +162,81 @@ body, .gradio-container{font-family:'Archivo',ui-sans-serif,system-ui,sans-serif
 .export-files{gap:14px}
 .hidden-empty{min-height:0!important}
 
-/* sub-section headers inside a panel, used to visually separate
-   "upload" from "query" on the left, and "results" from "export" on the right */
+/* sub-section headers */
 .vg-section{
   display:flex;align-items:center;gap:8px;
   font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--vg-yellow);margin:4px 0 10px 0;
+  color:var(--vg-blue-bright);margin:4px 0 12px 0;
+  text-shadow:0 0 12px rgba(63,169,255,0.4);
 }
 .vg-section .vg-badge{
   display:inline-flex;align-items:center;justify-content:center;
-  width:18px;height:18px;border-radius:2px;flex:none;
-  background:var(--vg-yellow);color:#0a0a08;font-size:11px;font-weight:700;
+  width:18px;height:18px;border-radius:5px;flex:none;
+  background:var(--vg-blue-bright);color:#06080c;font-size:11px;font-weight:700;
+  box-shadow:0 0 10px 1px rgba(127,212,255,0.6);
 }
 .vg-section::after{
-  content:"";flex:1;height:1px;background:var(--vg-line);
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg, var(--vg-line), transparent);
 }
 .vg-divider{
-  height:1px;background:var(--vg-line);margin:18px 0 14px 0;border:none;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--vg-line) 20%, var(--vg-line) 80%, transparent);
+  margin:18px 0 14px 0;border:none;
 }
 .vg-block{margin-bottom:2px}
 
-/* ---------- viewfinder / reticle treatment on visual elements ---------- */
+/* ---------- viewfinder treatment ---------- */
 .gradio-container .gr-video, .gradio-container video,
 .gradio-container .image-frame, .gradio-container .gallery,
 .gradio-container [data-testid="image"]{
-  border-radius:2px!important;
+  border-radius:8px!important;
 }
 
 label span, .label-wrap span{
   font-family:'JetBrains Mono',monospace!important;
   text-transform:uppercase;letter-spacing:.08em;font-size:12px!important;
-  color:var(--vg-yellow)!important;
+  color:var(--vg-blue-bright)!important;
 }
 
-/* markdown headings/answer block read like a terminal readout */
 .result-stack h2{
   font-family:'JetBrains Mono',monospace;
-  color:var(--vg-yellow);
+  color:var(--vg-blue-bright);
   font-size:15px;letter-spacing:.04em;text-transform:uppercase;
   border-bottom:1px dashed var(--vg-line);
   padding-bottom:6px;
 }
 .result-stack code{
-  background:#1c1a10;color:var(--vg-yellow-bright);
-  border:1px solid var(--vg-line);padding:1px 5px;border-radius:2px;
+  background:rgba(63,169,255,0.08);color:var(--vg-blue-bright);
+  border:1px solid var(--vg-line);padding:1px 5px;border-radius:4px;
 }
 
-/* buttons */
+/* buttons with luminous glow */
 .gradio-container button.primary{
   font-family:'JetBrains Mono',monospace;font-weight:700;
   letter-spacing:.04em;text-transform:uppercase;font-size:13px;
-  box-shadow:0 0 0 1px rgba(245,197,24,0.4);
+  box-shadow:0 0 16px 1px rgba(63,169,255,0.55), 0 0 0 1px rgba(63,169,255,0.4);
+  transition:box-shadow .2s ease, transform .15s ease;
+}
+.gradio-container button.primary:hover{
+  box-shadow:0 0 26px 4px rgba(127,212,255,0.7), 0 0 0 1px rgba(127,212,255,0.6);
+  transform:translateY(-1px);
 }
 .gradio-container button.secondary{
   font-family:'JetBrains Mono',monospace;font-weight:500;
   letter-spacing:.04em;text-transform:uppercase;font-size:13px;
+  box-shadow:0 0 0 1px rgba(63,169,255,0.15);
 }
 
-/* dataframe / table rows feel like a log */
+/* dataframe / table rows */
 .gradio-container table{font-family:'JetBrains Mono',monospace;font-size:12.5px}
-.gradio-container thead th{color:var(--vg-yellow)!important;text-transform:uppercase;letter-spacing:.04em}
+.gradio-container thead th{color:var(--vg-blue-bright)!important;text-transform:uppercase;letter-spacing:.04em}
 
 /* status pill */
 #vg-status-wrap p{
   font-family:'JetBrains Mono',monospace;font-size:12px;
-  color:var(--vg-yellow-dim);
+  color:var(--vg-blue-bright);
+  text-shadow:0 0 10px rgba(63,169,255,0.5);
 }
 """
 
@@ -362,7 +382,7 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
     gr.HTML(
         """
 <div class="hero">
-  <p class="vg-eyebrow">// surveillance video intelligence</p>
+  <p class="vg-eyebrow"><span class="vg-dot"></span>// surveillance video intelligence</p>
   <h1>VISION&nbsp;GUARD</h1>
   <p class="vg-sub">Scan a video to index it, then search it in plain language and export only the clips you need.</p>
   <div class="hero-steps">
@@ -378,8 +398,8 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
     q_state = gr.State("")
     hits_state = gr.State([])
 
-    with gr.Row(elem_classes="app-shell"):
-        with gr.Column(scale=1, elem_classes="panel"):
+    with gr.Column(elem_classes="app-shell"):
+        with gr.Group(elem_classes="panel vg-glow-panel"):
             gr.HTML('<div class="vg-section"><span class="vg-badge">1</span>upload &amp; scan</div>')
             video = gr.Video(label="cctv video", elem_classes="hidden-empty")
             good = [x for x in _sample_videos() if os.path.exists(x)]
@@ -387,15 +407,17 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
                 gr.Examples(good, inputs=video, label="sample videos")
             scan_btn = gr.Button("step 1: scan video", variant="primary")
             status = gr.Markdown("ready", elem_id="vg-status-wrap")
-            live = gr.Image(label="live indexing preview", interactive=False, elem_classes="hidden-empty")
-            info = gr.Markdown(elem_classes="tight-md")
 
             gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">2</span>search</div>')
             query = gr.Textbox(label="query", placeholder="person near gate, white car entering, blue truck, umbrella, backpack", interactive=False)
             find_btn = gr.Button("step 2: find matches", interactive=False)
             searched = gr.Markdown(elem_classes="tight-md")
 
-        with gr.Column(scale=2, elem_classes="panel result-stack"):
+            gr.HTML('<hr class="vg-divider"/><div class="vg-section">indexing detail</div>')
+            live = gr.Image(label="live indexing preview", interactive=False, elem_classes="hidden-empty")
+            info = gr.Markdown(elem_classes="tight-md")
+
+        with gr.Group(elem_classes="panel result-stack"):
             gr.HTML('<div class="vg-section"><span class="vg-badge">3</span>results</div>')
             answer = gr.Markdown(elem_classes="tight-md")
             table = gr.Dataframe(headers=["Best Frame At", "Clip Window", "Objects", "Summary"], interactive=False, wrap=True)
