@@ -361,9 +361,15 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
     demo.load(fn=get_system_status, inputs=None, outputs=status)
 
 
+import gradio as gr
+
 if __name__ == "__main__":
-    share = _share_enabled()
+    # Force share=True to generate a public live link
+    share = True 
     server_name = _server_name()
+    
     if server_name == "127.0.0.1":
         print("Open Vision Guard at http://127.0.0.1:7860")
+        
+    # The share=True parameter creates a temporary public gradio.live URL
     demo.launch(server_name=server_name, share=share, show_error=True)
