@@ -22,221 +22,245 @@ theme = gr.themes.Base(
     primary_hue=gr.themes.colors.blue,
     secondary_hue=gr.themes.colors.blue,
     neutral_hue=gr.themes.colors.slate,
-    font=(gr.themes.GoogleFont("Archivo"), "ui-sans-serif", "system-ui", "sans-serif"),
+    font=(gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui", "sans-serif"),
     font_mono=(gr.themes.GoogleFont("JetBrains Mono"), "ui-monospace", "Menlo", "monospace"),
 ).set(
-    body_background_fill="#06080c",
-    background_fill_primary="#0d1117",
-    background_fill_secondary="#06080c",
-    border_color_primary="#1c2b3a",
-    block_background_fill="#0d1117",
-    block_border_color="#1c2b3a",
-    block_label_text_color="#ffffff",
-    block_title_text_color="#5aa3d6",
-    body_text_color="#ffffff",
-    body_text_color_subdued="#c7d0d8",
-    input_background_fill="#10161f",
-    input_border_color="#1c2b3a",
-    button_primary_background_fill="#2c7fc1",
-    button_primary_background_fill_hover="#5aa3d6",
+    body_background_fill="#0a0d12",
+    background_fill_primary="#11151c",
+    background_fill_secondary="#0a0d12",
+    border_color_primary="#1f2733",
+    block_background_fill="#11151c",
+    block_border_color="#1f2733",
+    block_label_text_color="#aeb8c4",
+    block_title_text_color="#4d9bd9",
+    body_text_color="#f3f5f7",
+    body_text_color_subdued="#aeb8c4",
+    input_background_fill="#0d1117",
+    input_border_color="#1f2733",
+    button_primary_background_fill="#2b7fc7",
+    button_primary_background_fill_hover="#4d9bd9",
     button_primary_text_color="#06080c",
-    button_secondary_background_fill="#10161f",
-    button_secondary_border_color="#1d4f73",
-    button_secondary_text_color="#ffffff",
+    button_secondary_background_fill="#0d1117",
+    button_secondary_border_color="#1f2733",
+    button_secondary_text_color="#f3f5f7",
 )
 
 css = """
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Archivo:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root{
-  --vg-bg:#06080c;
-  --vg-panel:#0d1117;
-  --vg-blue:#2c7fc1;
-  --vg-blue-bright:#5aa3d6;
-  --vg-blue-dim:#1d4f73;
-  --vg-line:#1c2b3a;
-  --vg-ink:#ffffff;
-  --vg-ink-dim:#c7d0d8;
-  --vg-glow:0 0 18px rgba(44,127,193,0.30), 0 0 48px rgba(44,127,193,0.10);
+  --vg-bg:#0a0d12;
+  --vg-panel:#11151c;
+  --vg-panel-2:#0d1117;
+  --vg-blue:#2b7fc7;
+  --vg-blue-bright:#4d9bd9;
+  --vg-blue-soft:#1d4f73;
+  --vg-line:#1f2733;
+  --vg-line-soft:#171d27;
+  --vg-ink:#f3f5f7;
+  --vg-ink-dim:#aeb8c4;
+  --vg-mono:'JetBrains Mono',ui-monospace,monospace;
+  --vg-sans:'Inter',ui-sans-serif,system-ui,sans-serif;
+  --vg-radius:14px;
+  --vg-radius-sm:9px;
+  --vg-glow-btn:0 0 0 1px rgba(43,127,199,0.55), 0 4px 18px -2px rgba(43,127,199,0.45);
+  --vg-glow-btn-hover:0 0 0 1px rgba(77,155,217,0.75), 0 6px 26px -2px rgba(77,155,217,0.6);
 }
 
-.gradio-container{max-width:880px!important;margin:0 auto!important;background:var(--vg-bg)!important}
+.gradio-container{max-width:860px!important;margin:0 auto!important;background:var(--vg-bg)!important}
 .gradio-container,.gradio-container *{box-sizing:border-box}
-body, .gradio-container{font-family:'Archivo',ui-sans-serif,system-ui,sans-serif;color:var(--vg-ink)}
+body, .gradio-container{font-family:var(--vg-sans);color:var(--vg-ink)}
 body{
   display:flex;justify-content:center;
   background:
-    radial-gradient(circle at 15% 0%, rgba(44,127,193,0.09), transparent 45%),
-    radial-gradient(circle at 85% 20%, rgba(44,127,193,0.07), transparent 40%),
+    radial-gradient(ellipse 900px 420px at 50% -10%, rgba(43,127,199,0.16), transparent 60%),
     var(--vg-bg);
 }
 
 /* ---------- hero ---------- */
 .hero{
   position:relative;
-  padding:30px 28px 26px;
-  border-radius:10px;
-  background:rgba(13,17,23,0.85);
+  padding:34px 32px 30px;
+  border-radius:var(--vg-radius);
+  background:linear-gradient(180deg, rgba(17,21,28,0.9), rgba(13,17,23,0.85));
   border:1px solid var(--vg-line);
-  margin-bottom:18px;
+  margin-bottom:20px;
   overflow:hidden;
-  backdrop-filter:blur(14px);
-  box-shadow:var(--vg-glow);
-}
-.hero::before{
-  content:"";
-  position:absolute;inset:0;
-  background:repeating-linear-gradient(0deg, rgba(44,127,193,0.035) 0px, rgba(44,127,193,0.035) 1px, transparent 1px, transparent 3px);
-  pointer-events:none;
 }
 .hero::after{
   content:"";
-  position:absolute;top:-60px;right:-60px;
-  width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle, rgba(44,127,193,0.35), transparent 70%);
-  filter:blur(30px);
+  position:absolute;top:-40%;left:50%;transform:translateX(-50%);
+  width:480px;height:200px;border-radius:50%;
+  background:radial-gradient(circle, rgba(43,127,199,0.30), transparent 70%);
+  filter:blur(40px);
   pointer-events:none;
 }
 .hero .vg-eyebrow{
   position:relative;z-index:1;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--vg-blue-dim);margin:0 0 8px 0;
+  font-family:var(--vg-mono);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--vg-ink-dim);margin:0 0 14px 0;
   display:flex;align-items:center;gap:8px;
 }
 .hero .vg-eyebrow .vg-dot{
-  width:8px;height:8px;border-radius:50%;
+  width:7px;height:7px;border-radius:50%;
   background:var(--vg-blue-bright);
-  box-shadow:0 0 8px 2px rgba(90,163,214,0.9);
-  animation:vg-blink 1.6s steps(2,jump-none) infinite;
+  box-shadow:0 0 6px 1px rgba(77,155,217,0.8);
+  animation:vg-blink 2s ease-in-out infinite;
 }
-@keyframes vg-blink{50%{opacity:.2}}
+@keyframes vg-blink{50%{opacity:.35}}
 .hero h1{
   position:relative;z-index:1;
-  margin:0 0 4px 0;font-size:36px;font-weight:800;letter-spacing:-0.01em;
-  color:var(--vg-blue-bright);
-  text-shadow:0 0 24px rgba(44,127,193,0.45), 0 0 60px rgba(44,127,193,0.2);
-  line-height:1.1;
+  margin:0 0 10px 0;font-size:34px;font-weight:800;letter-spacing:-0.02em;
+  color:var(--vg-ink);
+  line-height:1.15;
 }
-.hero p.vg-sub{position:relative;z-index:1;margin:0;font-size:14px;color:var(--vg-ink);max-width:640px;line-height:1.5}
+.hero h1 .vg-accent{color:var(--vg-blue-bright)}
+.hero p.vg-sub{
+  position:relative;z-index:1;margin:0;font-size:15px;color:var(--vg-ink-dim);
+  max-width:560px;line-height:1.6;font-weight:400;
+}
 
-/* step pills */
+/* stepper, refined as a clean numbered row instead of loud pills */
 .hero-steps{
   position:relative;z-index:1;
-  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
-  margin-top:16px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:0;
+  margin-top:22px;
+  border-top:1px solid var(--vg-line);
+  padding-top:18px;
 }
 .hero-steps .vg-step{
-  display:flex;align-items:center;gap:8px;
-  font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;
-  background:rgba(44,127,193,0.07);border:1px solid var(--vg-line);border-radius:6px;
-  padding:8px 14px 8px 8px;color:#ffffff;
-  white-space:nowrap;
-  backdrop-filter:blur(6px);
+  display:flex;align-items:center;gap:9px;
+  font-family:var(--vg-mono);font-size:12px;letter-spacing:.01em;
+  color:var(--vg-ink-dim);
+  padding:4px 16px 4px 0;
 }
 .hero-steps .vg-step b{
   display:inline-flex;align-items:center;justify-content:center;
-  flex:none;width:18px;height:18px;border-radius:50%;
-  background:var(--vg-blue-bright);color:#06080c;font-size:11px;font-weight:700;
-  box-shadow:0 0 10px 1px rgba(90,163,214,0.7);
+  flex:none;width:20px;height:20px;border-radius:50%;
+  background:rgba(43,127,199,0.15);color:var(--vg-blue-bright);
+  font-size:11px;font-weight:700;border:1px solid rgba(43,127,199,0.4);
 }
 .hero-steps .vg-arrow{
-  color:var(--vg-blue-dim);font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--vg-line);font-size:13px;margin-right:6px;
 }
 
 /* ---------- single-column layout ---------- */
-.app-shell{gap:18px;display:flex;flex-direction:column}
+.app-shell{gap:20px;display:flex;flex-direction:column}
 .panel{
   border:1px solid var(--vg-line);
-  border-radius:10px;
-  background:rgba(13,17,23,0.78);
-  backdrop-filter:blur(14px);
-  padding:18px;
+  border-radius:var(--vg-radius);
+  background:var(--vg-panel);
+  padding:24px;
   position:relative;
-  box-shadow:0 0 0 1px rgba(44,127,193,0.04), 0 12px 40px rgba(0,0,0,0.35);
+  box-shadow:0 1px 0 rgba(255,255,255,0.02) inset, 0 16px 40px -16px rgba(0,0,0,0.6);
 }
-.panel.vg-glow-panel{box-shadow:var(--vg-glow), 0 12px 40px rgba(0,0,0,0.35);}
 
-.tight-md{margin-top:8px}
-.tight-md p{margin:0;color:#ffffff;font-family:'JetBrains Mono',monospace;font-size:13px}
-.result-stack{gap:16px}
-.export-files{gap:14px}
+.tight-md{margin-top:10px}
+.tight-md p{margin:0;color:var(--vg-ink-dim);font-family:var(--vg-mono);font-size:12.5px;line-height:1.6}
+.result-stack{gap:18px}
+.export-files{gap:12px}
 .hidden-empty{min-height:0!important}
 
-/* sub-section headers */
+/* sub-section headers: quiet label + rule, not a loud HUD badge */
 .vg-section{
-  display:flex;align-items:center;gap:8px;
-  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--vg-blue-bright);margin:4px 0 12px 0;
-  text-shadow:0 0 12px rgba(44,127,193,0.4);
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--vg-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--vg-ink-dim);margin:0 0 16px 0;
 }
 .vg-section .vg-badge{
   display:inline-flex;align-items:center;justify-content:center;
-  width:18px;height:18px;border-radius:5px;flex:none;
-  background:var(--vg-blue-bright);color:#06080c;font-size:11px;font-weight:700;
-  box-shadow:0 0 10px 1px rgba(90,163,214,0.6);
+  width:20px;height:20px;border-radius:6px;flex:none;
+  background:rgba(43,127,199,0.14);color:var(--vg-blue-bright);
+  font-size:11px;font-weight:700;border:1px solid rgba(43,127,199,0.35);
 }
+.vg-section .vg-label{color:var(--vg-ink);font-weight:600;letter-spacing:.06em}
 .vg-section::after{
-  content:"";flex:1;height:1px;
-  background:linear-gradient(90deg, var(--vg-line), transparent);
+  content:"";flex:1;height:1px;background:var(--vg-line);
 }
 .vg-divider{
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--vg-line) 20%, var(--vg-line) 80%, transparent);
-  margin:18px 0 14px 0;border:none;
+  height:1px;background:var(--vg-line);
+  margin:24px 0 18px 0;border:none;
 }
-.vg-block{margin-bottom:2px}
 
-/* ---------- viewfinder treatment ---------- */
+/* ---------- media elements ---------- */
 .gradio-container .gr-video, .gradio-container video,
 .gradio-container .image-frame, .gradio-container .gallery,
 .gradio-container [data-testid="image"]{
-  border-radius:8px!important;
+  border-radius:var(--vg-radius-sm)!important;
 }
 
 label span, .label-wrap span{
-  font-family:'JetBrains Mono',monospace!important;
-  text-transform:uppercase;letter-spacing:.08em;font-size:12px!important;
-  color:#ffffff!important;
+  font-family:var(--vg-mono)!important;
+  text-transform:uppercase;letter-spacing:.07em;font-size:11px!important;
+  color:var(--vg-ink-dim)!important;font-weight:500!important;
 }
 
 .result-stack h2{
-  font-family:'JetBrains Mono',monospace;
-  color:var(--vg-blue-bright);
-  font-size:15px;letter-spacing:.04em;text-transform:uppercase;
-  border-bottom:1px dashed var(--vg-line);
-  padding-bottom:6px;
+  font-family:var(--vg-mono);
+  color:var(--vg-ink);
+  font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+  border-bottom:1px solid var(--vg-line);
+  padding-bottom:8px;margin-bottom:10px;
 }
 .result-stack code{
-  background:rgba(44,127,193,0.10);color:var(--vg-blue-bright);
-  border:1px solid var(--vg-line);padding:1px 5px;border-radius:4px;
+  background:rgba(43,127,199,0.12);color:var(--vg-blue-bright);
+  border:1px solid rgba(43,127,199,0.25);padding:1px 6px;border-radius:4px;
+  font-size:0.92em;
 }
 
-/* buttons with luminous glow */
+/* ---------- buttons ---------- */
 .gradio-container button.primary{
-  font-family:'JetBrains Mono',monospace;font-weight:700;
-  letter-spacing:.04em;text-transform:uppercase;font-size:13px;
-  box-shadow:0 0 16px 1px rgba(44,127,193,0.55), 0 0 0 1px rgba(44,127,193,0.4);
-  transition:box-shadow .2s ease, transform .15s ease;
+  font-family:var(--vg-sans);font-weight:600;
+  letter-spacing:.01em;text-transform:none;font-size:14px;
+  background:linear-gradient(180deg, var(--vg-blue-bright), var(--vg-blue))!important;
+  border:none!important;color:#06080c!important;
+  box-shadow:var(--vg-glow-btn);
+  transition:box-shadow .2s ease, transform .15s ease, filter .15s ease;
 }
 .gradio-container button.primary:hover{
-  box-shadow:0 0 26px 4px rgba(90,163,214,0.7), 0 0 0 1px rgba(90,163,214,0.6);
+  box-shadow:var(--vg-glow-btn-hover);
   transform:translateY(-1px);
+  filter:brightness(1.05);
+}
+.gradio-container button.primary:active{transform:translateY(0)}
+.gradio-container button.primary:disabled{
+  background:var(--vg-panel-2)!important;color:var(--vg-ink-dim)!important;
+  box-shadow:none;filter:none;cursor:not-allowed;opacity:.55;
 }
 .gradio-container button.secondary{
-  font-family:'JetBrains Mono',monospace;font-weight:500;
-  letter-spacing:.04em;text-transform:uppercase;font-size:13px;
-  box-shadow:0 0 0 1px rgba(44,127,193,0.15);
+  font-family:var(--vg-sans);font-weight:500;
+  letter-spacing:.01em;text-transform:none;font-size:13.5px;
+  background:var(--vg-panel-2)!important;
+  border:1px solid var(--vg-line)!important;color:var(--vg-ink)!important;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.gradio-container button.secondary:hover{
+  border-color:rgba(43,127,199,0.5)!important;
+  box-shadow:0 0 0 1px rgba(43,127,199,0.25);
 }
 
-/* dataframe / table rows */
-.gradio-container table{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#ffffff}
-.gradio-container thead th{color:#ffffff!important;text-transform:uppercase;letter-spacing:.04em}
+/* inputs */
+.gradio-container textarea, .gradio-container input[type="text"]{
+  font-family:var(--vg-sans)!important;font-size:14px!important;
+}
+.gradio-container textarea:focus, .gradio-container input[type="text"]:focus{
+  box-shadow:0 0 0 2px rgba(43,127,199,0.3)!important;
+  border-color:var(--vg-blue)!important;
+}
 
-/* status pill */
+/* dataframe / table */
+.gradio-container table{font-family:var(--vg-mono);font-size:12.5px;color:var(--vg-ink)}
+.gradio-container thead th{
+  color:var(--vg-ink-dim)!important;text-transform:uppercase;letter-spacing:.05em;
+  font-size:11px!important;font-weight:600!important;
+}
+
+/* status line */
 #vg-status-wrap p{
-  font-family:'JetBrains Mono',monospace;font-size:12px;
-  color:#ffffff;
+  font-family:var(--vg-mono);font-size:12px;
+  color:var(--vg-ink-dim);
+  display:flex;align-items:center;gap:7px;
 }
 """
 
@@ -382,15 +406,15 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
     gr.HTML(
         """
 <div class="hero">
-  <p class="vg-eyebrow"><span class="vg-dot"></span>// surveillance video intelligence</p>
-  <h1>VISION&nbsp;GUARD</h1>
-  <p class="vg-sub">Scan a video to index it, then search it in plain language and export only the clips you need.</p>
+  <p class="vg-eyebrow"><span class="vg-dot"></span>VIDEO INTELLIGENCE</p>
+  <h1>Vision <span class="vg-accent">Guard</span></h1>
+  <p class="vg-sub">Upload a video, index it once, then search for any object, person, or moment using plain language — and export only the clips that matter.</p>
   <div class="hero-steps">
-    <div class="vg-step"><b>1</b>scan the video</div>
+    <div class="vg-step"><b>1</b>Scan video</div>
     <span class="vg-arrow">&rarr;</span>
-    <div class="vg-step"><b>2</b>write a query &amp; find matches</div>
+    <div class="vg-step"><b>2</b>Search in plain language</div>
     <span class="vg-arrow">&rarr;</span>
-    <div class="vg-step"><b>3</b>review &amp; export selected clips</div>
+    <div class="vg-step"><b>3</b>Review &amp; export clips</div>
   </div>
 </div>
 """
@@ -399,8 +423,8 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
     hits_state = gr.State([])
 
     with gr.Column(elem_classes="app-shell"):
-        with gr.Group(elem_classes="panel vg-glow-panel"):
-            gr.HTML('<div class="vg-section"><span class="vg-badge">1</span>upload &amp; scan</div>')
+        with gr.Group(elem_classes="panel"):
+            gr.HTML('<div class="vg-section"><span class="vg-badge">1</span><span class="vg-label">Upload &amp; Scan</span></div>')
             video = gr.Video(label="cctv video", elem_classes="hidden-empty")
             good = [x for x in _sample_videos() if os.path.exists(x)]
             if good:
@@ -408,25 +432,25 @@ with gr.Blocks(title="Vision Guard", css=css, theme=theme) as demo:
             scan_btn = gr.Button("step 1: scan video", variant="primary")
             status = gr.Markdown("ready", elem_id="vg-status-wrap")
 
-            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">2</span>search</div>')
-            query = gr.Textbox(label="query", placeholder="person near gate, white car entering, blue truck, umbrella, backpack", interactive=False)
-            find_btn = gr.Button("step 2: find matches", interactive=False)
-            searched = gr.Markdown(elem_classes="tight-md")
-
-            gr.HTML('<hr class="vg-divider"/><div class="vg-section">indexing detail</div>')
+            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-label">Indexing Detail</span></div>')
             live = gr.Image(label="live indexing preview", interactive=False, elem_classes="hidden-empty")
             info = gr.Markdown(elem_classes="tight-md")
 
+            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">2</span><span class="vg-label">Search</span></div>')
+            query = gr.Textbox(label="query", placeholder="person near gate, white car entering, blue truck, umbrella, backpack", interactive=False)
+            find_btn = gr.Button("step 2: find matches", variant="primary", interactive=False)
+            searched = gr.Markdown(elem_classes="tight-md")
+
         with gr.Group(elem_classes="panel result-stack"):
-            gr.HTML('<div class="vg-section"><span class="vg-badge">3</span>results</div>')
+            gr.HTML('<div class="vg-section"><span class="vg-badge">3</span><span class="vg-label">Results</span></div>')
             answer = gr.Markdown(elem_classes="tight-md")
             table = gr.Dataframe(headers=["Best Frame At", "Clip Window", "Objects", "Summary"], interactive=False, wrap=True)
             gallery = gr.Gallery(label="matched frames", columns=2, height="auto")
             match_md = gr.Markdown(elem_classes="tight-md")
 
-            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">4</span>export</div>')
+            gr.HTML('<hr class="vg-divider"/><div class="vg-section"><span class="vg-badge">4</span><span class="vg-label">Export</span></div>')
             pick = gr.CheckboxGroup(label="choose clips to export")
-            export_btn = gr.Button("export selected")
+            export_btn = gr.Button("export selected", variant="primary")
             with gr.Row(elem_classes="export-files"):
                 zipf = gr.File(label="zip", visible=False)
                 html = gr.File(label="html report", visible=False)
